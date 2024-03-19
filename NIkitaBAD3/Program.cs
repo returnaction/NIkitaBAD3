@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NIkitaBAD3.Data;
+
 namespace NIkitaBAD3
 {
     public class Program
@@ -8,6 +11,8 @@ namespace NIkitaBAD3
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 

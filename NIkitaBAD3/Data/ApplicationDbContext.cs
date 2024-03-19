@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using NIkitaBAD3.Configuration;
 using NIkitaBAD3.Models;
 
 namespace NIkitaBAD3.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -28,6 +30,8 @@ namespace NIkitaBAD3.Data
                     Age = 29,
                     Position = "Software Developer"
                 });
+
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
         public DbSet<Employee> Employees { get; set; }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NIkitaBAD3.Data;
@@ -22,6 +23,7 @@ namespace NIkitaBAD3.Controllers
             return View();
         }
 
+        [Authorize]
         public async Task<IActionResult> Employees()
         {
             var employees = await _context.Employees.ToListAsync();

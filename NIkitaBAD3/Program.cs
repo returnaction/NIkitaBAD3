@@ -26,6 +26,8 @@ namespace NIkitaBAD3
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //builder.Services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
+
 
             builder.Services.AddAutoMapper(typeof(Program));
 
@@ -44,6 +46,7 @@ namespace NIkitaBAD3
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

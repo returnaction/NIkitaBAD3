@@ -35,7 +35,7 @@ namespace NIkitaBAD3.Models
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
-        public int Email { get; set; }
+        public string Email { get; set; } = null!;
 
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]

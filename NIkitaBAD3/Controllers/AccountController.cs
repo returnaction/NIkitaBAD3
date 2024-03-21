@@ -23,9 +23,25 @@ namespace NIkitaBAD3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(UserRegistrationModel userModel)
+        public async Task<IActionResult> Register(UserRegistrationModel userModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+                return View(userModel);
+
+            User? user = _mapper.Map<User>(userModel);
+
+            IdentityResult? result = await _userManager.CreateAsync(user, userModel.Password);
+            if (!result.Succeeded)
+            {
+                foreach(var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View(userModel);
+            }
+
+            await _userManager.AddToRoleAsync(user, "Visitor");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

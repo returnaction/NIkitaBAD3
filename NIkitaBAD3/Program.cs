@@ -16,8 +16,15 @@ namespace NIkitaBAD3
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddIdentity<User, IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Password.RequiredLength = 7;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = false;
+
+                opt.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
             builder.Services.AddAutoMapper(typeof(Program));
@@ -47,3 +54,4 @@ namespace NIkitaBAD3
         }
     }
 }
+//bambo2835@gmail.com slkdf2935!@FH

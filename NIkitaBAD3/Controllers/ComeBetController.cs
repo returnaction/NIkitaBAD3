@@ -16,6 +16,13 @@ namespace NIkitaBAD3.Controllers
 
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+
+        public ComeBetController(ApplicationDbContext context, UserManager<User> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
+
         public IActionResult Play()
         {
             ComeBet comeBet = GenerateComeBet();

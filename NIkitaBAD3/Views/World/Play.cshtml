@@ -1,0 +1,31 @@
+﻿@model PropBet
+@{
+    ViewData["Title"] = "Play";
+}
+
+<div class="container">
+    <h2>World Bet</h2>
+
+    @if (Model.ErrorMessage != null)
+    {
+        <p>@Model.ErrorMessage</p>
+    }
+
+    <p>Bet: @Model.Bet</p>
+    <p>Dice Roll: @Model.RolledNumber</p>
+
+    <div class="row">
+        <form asp-action="Play">
+            <input asp-for="@Model.Bet" name="bet" hidden />
+            <input asp-for="@Model.RolledNumber" name="rolledNumber" hidden />
+            <div class="form-group">
+                <label asp-for="@Model.Answer">Answer:</label>
+                <input asp-for="@Model.Answer" type="number" min="0" required autofocus />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit Answer</button>
+            </div>
+        </form>
+    </div>
+</div>
+

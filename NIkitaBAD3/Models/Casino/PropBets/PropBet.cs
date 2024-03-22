@@ -7,5 +7,7 @@
         public int? PlacedBet { get; set; }
         public string ErrorMessage { get; set; } = null!;
         public int Answer { get; set; }
+
+  
     }
 }

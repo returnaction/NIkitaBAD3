@@ -23,9 +23,9 @@ namespace NIkitaBAD3.Controllers
             _context = context;
         }
 
-        public IActionResult Play()
+        public IActionResult Play(int? min, int? max, int? increment)
         {
-            PropBet worldBet = GenerateWorlBet();
+            PropBet worldBet = GenerateWorlBet(min, max, increment);
             return View(worldBet);
         }
 
@@ -91,10 +91,10 @@ namespace NIkitaBAD3.Controllers
             return result;
         }
 
-        private PropBet GenerateWorlBet()
+        private PropBet GenerateWorlBet(int? min, int? max, int? increment)
         {
             PropBet worldBet = new();
-            worldBet.Bet = GenerateRandomBet();
+            worldBet.Bet = GenerateRandomBet(min, max, increment);
             worldBet.RolledNumber = RollDice();
 
             return worldBet;
@@ -107,10 +107,15 @@ namespace NIkitaBAD3.Controllers
             return outcome[random.Next(0, outcome.Length)];
         }
 
-        private int GenerateRandomBet()
+        private int GenerateRandomBet(int? min, int? max, int? increment)
         {
             Random random = new();
-            return random.Next(1, 41) * 5;
+            int minValue = min ?? 5;
+            int maxValue = min ?? 200;
+            int incValue = (increment.HasValue && (increment == 5 || increment == 10 || increment == 25 || increment == 100)) ? increment.Value : 5; // If increment is null or not in the allowed values, set it to 5
+
+
+            return random.Next(minValue, maxValue / incValue + 1) * incValue;
         }
     }
 }

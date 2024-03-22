@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NIkitaBAD3.Data;
 using NIkitaBAD3.Models;
+using NIkitaBAD3.Models.Casino;
 using System.Diagnostics;
 
 namespace NIkitaBAD3.Controllers
@@ -18,9 +19,10 @@ namespace NIkitaBAD3.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<PlayerGames> playerGamesBoard = await _context.PlayerGames.Include(u => u.User).ToListAsync();
+            return View(playerGamesBoard);
         }
 
         [Authorize]

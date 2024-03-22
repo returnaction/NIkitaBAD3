@@ -1,8 +1,38 @@
-﻿@{
+﻿
+@model List<PlayerGames>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+
+    <h2 class="text-primary text-center">Craps Bet LeaderShip</h2>
+
+    <hr />
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">User</th>
+                    <th scope="col">GamesType</th>
+                    <th scope="col">Longest Streak</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (PlayerGames games in Model)
+                {
+                    <tr class="justify-content-evenly">
+
+                        <td>@games.Id</td>
+                        <td>@games.User.UserName</td>
+                        <td>@games.GameType</td>
+                        <td>@games.LongestCorrectAsnwerStreak</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
 </div>

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using NIkitaBAD3.Data;
 using NIkitaBAD3.Factory;
 using NIkitaBAD3.Models;
@@ -12,7 +13,6 @@ namespace NIkitaBAD3
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -24,10 +24,11 @@ namespace NIkitaBAD3
                 opt.Password.RequireUppercase = false;
 
                 opt.User.RequireUniqueEmail = true;
+
+                opt.SignIn.RequireConfirmedEmail = false;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //builder.Services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
 
             builder.Services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             builder.Services.AddAutoMapper(typeof(Program));

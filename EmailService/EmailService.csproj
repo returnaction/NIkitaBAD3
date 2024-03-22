@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NIkitaBAD3\NIkitaBAD3.csproj" />
+  </ItemGroup>
+
 </Project>

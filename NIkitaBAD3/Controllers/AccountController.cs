@@ -64,22 +64,37 @@ namespace NIkitaBAD3.Controllers
                 return View(userModel);
             }
 
-            User? user = await _userManager.FindByEmailAsync(userModel.Email);
-            if(user != null && await _userManager.CheckPasswordAsync(user, userModel.Password))
+            //User? user = await _userManager.FindByEmailAsync(userModel.Email);
+            //if(user != null && await _userManager.CheckPasswordAsync(user, userModel.Password))
+            //{
+            //    ClaimsIdentity? identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
+            //    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            //    identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName!));
+
+            //    await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
+
+            //    return RedirectToLocal(returnUrl);
+            //}
+
+            var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
+            if (result.Succeeded)
             {
-                ClaimsIdentity? identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName!));
-
-                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
-
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction(returnUrl);
             }
             else
             {
                 ModelState.AddModelError("", "Invalid UserName or Password");
                 return View();
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

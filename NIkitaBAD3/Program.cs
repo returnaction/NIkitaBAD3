@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NIkitaBAD3.Data;
+using NIkitaBAD3.Factory;
 using NIkitaBAD3.Models;
 
 namespace NIkitaBAD3
@@ -28,7 +29,7 @@ namespace NIkitaBAD3
 
             //builder.Services.ConfigureApplicationCookie(o => o.LoginPath = "/Authentication/Login");
 
-
+            builder.Services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsFactory>();
             builder.Services.AddAutoMapper(typeof(Program));
 
             var app = builder.Build();

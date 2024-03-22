@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NIkitaBAD3.Configuration;
 using NIkitaBAD3.Models;
+using NIkitaBAD3.Models.Casino;
 
 namespace NIkitaBAD3.Data
 {
@@ -10,6 +11,9 @@ namespace NIkitaBAD3.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<PlayerGames> PlayerGames { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +38,5 @@ namespace NIkitaBAD3.Data
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
-        public DbSet<Employee> Employees { get; set; }
     }
 }

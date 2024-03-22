@@ -6,33 +6,56 @@
 
 <div class="container">
 
-    <h2 class="text-primary text-center">Craps Bet LeaderShip</h2>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <a asp-area="" asp-controller="ComeBet" asp-action="Play" class="btn btn-primary">Come Bets</a>
+        </div>
+        <div class="col-auto">
+            <a asp-area="" asp-controller="PlaceBet" asp-action="Play" class="btn btn-primary">Place Bets</a>
+        </div>
+        <div class="col-auto">
+            <a asp-area="" asp-controller="Horn" asp-action="Play" class="btn btn-primary">Horn Bets</a>
+        </div>
+        <div class="col-auto">
+            <a asp-area="" asp-controller="HornHigh" asp-action="Play" class="btn btn-primary">HornHigh Bets</a>
+        </div>
+        <div class="col-auto">
+            <a asp-area="" asp-controller="World" asp-action="Play" class="btn btn-primary">World Bets</a>
+        </div>
+    </div>
 
     <hr />
 
-    <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">User</th>
-                    <th scope="col">GamesType</th>
-                    <th scope="col">Longest Streak</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (PlayerGames games in Model)
-                {
-                    <tr class="justify-content-evenly">
+    <div>
+        <h2 class="text-primary text-center">Craps Bet LeaderShip</h2>
 
-                        <td>@games.Id</td>
-                        <td>@games.User.UserName</td>
-                        <td>@games.GameType</td>
-                        <td>@games.LongestCorrectAsnwerStreak</td>
+        <hr />
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">User</th>
+                        <th scope="col">GamesType</th>
+                        <th scope="col">Longest Streak</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (PlayerGames games in Model)
+                    {
+                        <tr class="justify-content-evenly">
+
+                            <td>@games.Id</td>
+                            <td>@games.User.UserName</td>
+                            <td>@games.GameType</td>
+                            <td>@games.LongestCorrectAsnwerStreak</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
+    
 
 </div>

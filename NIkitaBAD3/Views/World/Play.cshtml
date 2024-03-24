@@ -4,23 +4,7 @@
 }
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <a asp-area="" asp-controller="ComeBet" asp-action="Play" class="btn btn-primary">Come Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="PlaceBet" asp-action="Play" class="btn btn-primary">Place Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="Horn" asp-action="Play" class="btn btn-primary">Horn Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="HornHigh" asp-action="Play" class="btn btn-primary">HornHigh Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="World" asp-action="Play" class="btn btn-primary">World Bets</a>
-        </div>
-    </div>
+    <partial name="_GamesLinks" />
 
     <hr />
     <div>
@@ -34,7 +18,6 @@
 
         <p>Bet: @Model.Bet</p>
         <p>Dice Roll: @Model.RolledNumber</p>
-
         <div class="row">
             <form asp-action="Play">
                 <input asp-for="@Model.Bet" name="bet" hidden />
@@ -51,6 +34,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="min">Increment</label>
+                    <select id="increment" name="increment">
+                        <option value="5" selected>5</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label asp-for="@Model.Answer">Answer:</label>
                     <input asp-for="@Model.Answer" type="number" min="0" required autofocus />
                 </div>
@@ -62,7 +55,7 @@
     </div>
 </div>
 
-@* Later insure that the max of min nor more then min of max *@
+@* Later insure that the max is not less than min *@
 @* <script>
     document.addEventListener("DOMContentLoaded", function () {
         var minInput = document.getElementById("min");

@@ -5,23 +5,7 @@
 
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-auto">
-            <a asp-area="" asp-controller="ComeBet" asp-action="Play" class="btn btn-primary">Come Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="PlaceBet" asp-action="Play" class="btn btn-primary">Place Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="Horn" asp-action="Play" class="btn btn-primary">Horn Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="HornHigh" asp-action="Play" class="btn btn-primary">HornHigh Bets</a>
-        </div>
-        <div class="col-auto">
-            <a asp-area="" asp-controller="World" asp-action="Play" class="btn btn-primary">World Bets</a>
-        </div>
-    </div>
+    <partial name="_GamesLinks" />
 
     <hr />
     <div>

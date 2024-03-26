@@ -16,32 +16,38 @@
             <p>@Model.ErrorMessage</p>
         }
 
-        <p>Bet: @Model.Bet</p>
-        <p>Dice Roll: @Model.RolledNumber</p>
+        
+       
         <div class="row">
             <form asp-action="Play">
                 <input asp-for="@Model.Bet" name="bet" hidden />
                 <input asp-for="@Model.RolledNumber" name="rolledNumber" hidden />
 
-                <div class="form-group">
-                    <label for="min">Min Bet</label>
-                    <input type="number" id="min" name="min" min="5" max="5000" step="5" />
+                 <div class="form-group">
+                    <label>Min Bet</label>
+                    <input for="minBet" name="minBet" type="number" min="5" max="1000" step="5"  value="@(TempData.ContainsKey("minBet") ? TempData["minBet"] : 5)"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="min">Max Bet</label>
-                    <input type="number" id="max" name="max" min="5" max="5000" step="5" />
-                </div>
+                    <label>Max Bet</label>
+                    <input for="maxBet" name="maxBet" type="number" step="5" min="25" max="5000" value="@(TempData.ContainsKey("maxBet") ? TempData["maxBet"] : 200)"  />
+                </div> 
 
                 <div class="form-group">
-                    <label for="min">Increment</label>
-                    <select id="increment" name="increment">
+                    <label>Increment</label>
+                    @* redo this one *@
+                    <select for="incrementBet" value="@(TempData.ContainsKey("incrementBet") ? TempData["incrementBet"] : 5)">
                         <option value="5" selected>5</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
                 </div>
+
+                <p>Bet: @Model.Bet</p>
+                <p>Dice Roll: @Model.RolledNumber</p>
+
+                
 
                 <div class="form-group">
                     <label asp-for="@Model.Answer">Answer:</label>

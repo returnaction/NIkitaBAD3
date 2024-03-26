@@ -1,4 +1,6 @@
-﻿namespace NIkitaBAD3.Models.Casino.PropBets
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace NIkitaBAD3.Models.Casino.PropBets
 {
     public class PropBet
     {
@@ -8,6 +10,5 @@
         public string ErrorMessage { get; set; } = null!;
         public int Answer { get; set; }
 
-  
     }
 }

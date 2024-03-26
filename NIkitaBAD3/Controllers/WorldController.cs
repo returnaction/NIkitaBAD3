@@ -16,6 +16,7 @@ namespace NIkitaBAD3.Controllers
 
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
+        
 
         public WorldController(UserManager<User> userManager, ApplicationDbContext context)
         {
@@ -23,16 +24,43 @@ namespace NIkitaBAD3.Controllers
             _context = context;
         }
 
-        public IActionResult Play(int? min, int? max, int? increment)
+        public IActionResult Play()
         {
-            PropBet worldBet = GenerateWorlBet(min, max, increment);
+            int? minBet = null;
+            int? maxBet = null;
+            int? incrementBet = null;
+
+            if (TempData.ContainsKey("minBet"))
+            {
+                if (TempData["minBet"] is int minBetValue)
+                    minBet = minBetValue;
+            }
+
+            if (TempData.ContainsKey("maxBet"))
+            {
+                if (TempData["maxBet"] is int maxBetValue)
+                    maxBet = maxBetValue;
+            }
+
+            if (TempData.ContainsKey("incrementBet"))
+            {
+                if (TempData["incrementBet"] is int incrementBetValue)
+                    incrementBet = incrementBetValue;
+            }
+
+            PropBet worldBet = GenerateWorlBet(minBet, maxBet, incrementBet);
+            
             return View(worldBet);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Play(PropBet propBet)
+        public async Task<IActionResult> Play(PropBet propBet, int minBet, int maxBet, int incrementBet)
         {
+            TempData["minBet"] = minBet;
+            TempData["maxBet"] = maxBet;
+            TempData["incrementBet"] = incrementBet;
+
 
             User? user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -55,6 +83,7 @@ namespace NIkitaBAD3.Controllers
                     worldBetGame.LongestCorrectAsnwerStreak = worldBetGame.TempBestResult;
                     await _context.SaveChangesAsync();
                 }
+
                 return RedirectToAction(nameof(Play));
             }
             else
@@ -111,7 +140,7 @@ namespace NIkitaBAD3.Controllers
         {
             Random random = new();
             int minValue = min ?? 5;
-            int maxValue = min ?? 200;
+            int maxValue = max ?? 200;
             int incValue = (increment.HasValue && (increment == 5 || increment == 10 || increment == 25 || increment == 100)) ? increment.Value : 5; // If increment is null or not in the allowed values, set it to 5
 
 

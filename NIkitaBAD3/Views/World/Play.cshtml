@@ -133,9 +133,16 @@
 
         chipElement.classList.add('chip', colorClass);
         chipElement.style = `left: 50%; top: calc(50% - ${i * 5}px); transform: translate(-50%, -50%);`;
-        chipElement.innerText = chip;
+        
 
         worldBet.appendChild(chipElement);
+        if (i === chips.length - 1) {
+            const betAmountSpan = document.createElement('span');
+            betAmountSpan.innerText = betAmount;
+            betAmountSpan.style = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px;';
+            chipElement.appendChild(betAmountSpan);
+        }
+       
     });
 </script>
 

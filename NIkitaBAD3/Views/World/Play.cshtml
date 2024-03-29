@@ -16,69 +16,127 @@
             <p>@Model.ErrorMessage</p>
         }
 
-        
-       
+
+
         <div class="row">
+
+            <div id="worldBet" class="worldBet">
+                <p>Horn Bet</p>
+        
+            </div>
             <form asp-action="Play">
                 <input asp-for="@Model.Bet" name="bet" hidden />
                 <input asp-for="@Model.RolledNumber" name="rolledNumber" hidden />
 
-                 <div class="form-group">
+                <hr />
+                @* Settings *@
+                <div class="form-group">
+                    <h4 class="">Settings</h4>
+                </div>
+                <div class="form-group">
                     <label>Min Bet</label>
-                    <input for="minBet" name="minBet" type="number" min="5" max="1000" step="5"  value="@(TempData.ContainsKey("minBet") ? TempData["minBet"] : 5)"/>
+                    <input for="minBet" name="minBet" id="minBet" type="number" min="5" max="500" step="5" value="@(TempData.ContainsKey("minBet") ? TempData["minBet"] : 5)" />
                 </div>
 
                 <div class="form-group">
                     <label>Max Bet</label>
-                    <input for="maxBet" name="maxBet" type="number" step="5" min="25" max="5000" value="@(TempData.ContainsKey("maxBet") ? TempData["maxBet"] : 200)"  />
-                </div> 
+                    <input for="maxBet" name="maxBet" id="maxBet" type="number" step="5" min="25" max="5000" value="@(TempData.ContainsKey("maxBet") ? TempData["maxBet"] : 200)" />
+                </div>
 
                 <div class="form-group">
                     <label>Increment</label>
-                    @* redo this one *@
-                    <select for="incrementBet" value="@(TempData.ContainsKey("incrementBet") ? TempData["incrementBet"] : 5)">
-                        <option value="5" selected>5</option>
+                    @* Finish later to get selected *@
+                    @{
+                        var incrementBetValue = TempData.ContainsKey("incrementBet") ? (int)TempData["incrementBet"] : 5;
+
+                    }
+                    @* <select id="incrementBet" name="incrementBet" value="@(TempData.ContainsKey("incrementBet") ? TempData["incrementBet"] : 5)"> *@
+                        <select id="incrementBet" name="incrementBet" asp-for="@incrementBetValue">
+                        <option value="5">5</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
                 </div>
+                @* Settings *@
+                <hr />
+                
 
                 <p>Bet: @Model.Bet</p>
                 <p>Dice Roll: @Model.RolledNumber</p>
 
-                
-
-                <div class="form-group">
-                    <label asp-for="@Model.Answer">Answer:</label>
-                    <input asp-for="@Model.Answer" type="number" min="0" required autofocus />
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit Answer</button>
+                <div id="answerDiv" style="display: inline">
+                    <div class="form-group">
+                        <label asp-for="@Model.Answer">Answer:</label>
+                        <input asp-for="@Model.Answer" type="number" min="0" required autofocus />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit Answer</button>
+                    </div>
                 </div>
             </form>
+
+            <div id="nextQuestion" style="display: none">
+                <a asp-area="" asp-controller="World" asp-action="Play" class="btn btn-primary">Next question</a>
+            </div>
+
+            <div class="form-group">
+                <span id="correctAnswer" style="display: none">@Model.CorrectAnswer</span>
+                <button id="showCorrectAnswer" class="btn btn-secondary">Show Correct Answer</button>
+            </div>
         </div>
     </div>
 </div>
 
-@* Later insure that the max is not less than min *@
-@* <script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
-        var minInput = document.getElementById("min");
-        var maxInput = document.getElementById("max");
-
-        minInput.addEventListener("input", function () {
-            // Ensure that the value of the "Max Bet" input is not lower than the value of the "Min Bet" input
-            if (parseInt(maxInput.value) < parseInt(minInput.value)) {
-                maxInput.value = minInput.value;
-            }
-        });
-
-        maxInput.addEventListener("input", function () {
-            // Ensure that the value of the "Max Bet" input is not lower than the value of the "Min Bet" input
-            if (parseInt(maxInput.value) < parseInt(minInput.value)) {
-                maxInput.value = minInput.value;
-            }
+        document.getElementById('showCorrectAnswer').addEventListener('click', function () {
+            document.getElementById('correctAnswer').style.display = 'inline';
+            document.getElementById('showCorrectAnswer').style.display = 'none';
+            document.getElementById('answerDiv').style.display = 'none';
+            document.getElementById('nextQuestion').style.display = "inline";
         });
     });
-</script> *@
+    
+    const betAmount = @Html.Raw(Json.Serialize(Model.Bet));
+    const chips = [];
+    let bet = betAmount;
+    // Subtract 100 chips until the remaining bet is less than 100
+    while (bet >= 100) {
+        chips.push(100);
+        bet -= 100;
+    }
+
+    // Subtract 25 chips until the remaining bet is less than 25
+    while (bet >= 25) {
+        chips.push(25);
+        bet -= 25;
+    }
+
+    // Add the remaining bet as 5 chips
+    while (bet > 0) {
+        chips.push(5);
+        bet -= 5;
+    }
+
+    const worldBet = document.getElementById('worldBet');
+
+    chips.forEach((chip, i) => {
+        const chipElement = document.createElement('div');
+        let colorClass = 'chip-black';
+
+        if (chip === 25) {
+            colorClass = 'chip-green';
+        } else if (chip === 5) {
+            colorClass = 'chip-red';
+        }
+
+        chipElement.classList.add('chip', colorClass);
+        chipElement.style = `left: 50%; top: calc(50% - ${i * 5}px); transform: translate(-50%, -50%);`;
+        chipElement.innerText = chip;
+
+        worldBet.appendChild(chipElement);
+    });
+</script>
+
+

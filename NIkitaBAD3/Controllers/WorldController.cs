@@ -74,7 +74,8 @@ namespace NIkitaBAD3.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            if (propBet.Answer == CalculateCorrectAnswer(propBet.Bet, propBet.RolledNumber))
+            
+            if (propBet.Answer == propBet.CorrectAnswer)
             {
                 worldBetGame.TempBestResult++;
                 worldBetGame.TotalAnswers++;
@@ -125,6 +126,7 @@ namespace NIkitaBAD3.Controllers
             PropBet worldBet = new();
             worldBet.Bet = GenerateRandomBet(min, max, increment);
             worldBet.RolledNumber = RollDice();
+            worldBet.CorrectAnswer = CalculateCorrectAnswer(worldBet.Bet, worldBet.RolledNumber);
 
             return worldBet;
         }

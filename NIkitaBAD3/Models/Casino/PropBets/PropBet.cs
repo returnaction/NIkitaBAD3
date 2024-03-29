@@ -10,5 +10,8 @@ namespace NIkitaBAD3.Models.Casino.PropBets
         public string ErrorMessage { get; set; } = null!;
         public int Answer { get; set; }
 
+       
+        public int CorrectAnswer { get; set; }
+
     }
 }

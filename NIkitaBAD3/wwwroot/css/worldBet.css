@@ -1,17 +1,13 @@
-﻿.worldBet{
+﻿
+/*CHIPS*/
+.worldBet {
     width: 450px;
     height: 450px;
-    background-color: green;
+    background-color: #74BF77;
     position: relative;
 }
 
-    .worldBet p {
-        font-size: 42px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: calc(2/3 * 100%);
-    }
+
 
 .chip {
     position: absolute;
@@ -37,3 +33,80 @@
 .chip-black {
     background-color: black; /* Black background for the black chip */
 }
+
+/*DICE*/
+
+.dice-container {
+    position: absolute;
+    top: 25%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.dice {
+    display: inline-block;
+    width: 75px; 
+    height: 75px; 
+    border: 1px solid black;
+    position: relative;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+}
+    .dot:nth-child(1) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(2) {
+        top: 30%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(3) {
+        top: 70%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(4) {
+        top: 30%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(5) {
+        top: 70%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(6) {
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(7) {
+        top: 50%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(8) {
+        top: 50%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot:nth-child(9) {
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }

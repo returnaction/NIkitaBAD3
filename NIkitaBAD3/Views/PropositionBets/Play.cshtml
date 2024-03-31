@@ -9,10 +9,81 @@
     <hr />
     <div>
         <h2>PropBets</h2>
-        
-        @* Add Error message *@
 
+        @* Add Error message *@
+        <div id="propositionBet" class="ropositionBet">
+            <img src="/images/props/PropBetLayOut.png" alt="props layout" />
+            <div id="diceContainer" class="dice-Container"></div>
+        </div>
 
     </div>
 </div>
+
+<script>
+
+
+    const rolledNumber = 3;
+    const diceContainer = document.getElementById('diceContainer');
+
+    // function to create an element with a number of a
+    function createDice(numberOfDots) {
+        const diceElement = document.createElement('div');
+        diceElement.classList.add('dice');
+
+        for (let i = 0; i < numberOfDots; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            diceElement.appendChild(dot);
+        }
+
+        return diceElement;
+    }
+
+    function renderDice() {
+        let dice1, dice2;
+
+        switch (rolledNumber) {
+            case 2:
+                dice1 = createDice(1);
+                dice2 = createDice(1);
+                break;
+            case 3:
+                dice1 = createDice(2);
+                dice2 = createDice(1);
+                break;
+            case 7:
+                dice1 = createDice(5);
+                dice2 = createDice(2);
+                break;
+            case 11:
+                dice1 = createDice(6);
+                dice2 = createDice(5);
+                break;
+            case 12:
+                dice1 = createDice(6);
+                dice2 = createDice(6);
+                break;
+            default:
+
+                dice1 = null;
+                dice2 = null;
+        }
+
+        // clean previous dice elements
+        diceContainer.innerHTML = '';
+
+        // Append new dice elements
+        if (dice1) {
+            diceContainer.appendChild(dice1);
+        }
+        if (dice2) {
+            diceContainer.appendChild(dice2);
+        }
+    }
+
+    // Render dice when DOM content is loaded
+    renderDice();
+
+
+</script>
 

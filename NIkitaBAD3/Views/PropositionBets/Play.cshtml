@@ -11,6 +11,7 @@
         <h2>PropBets</h2>
 
         @* Add Error message *@
+
         <div id="propositionBet" class="ropositionBet">
             <img src="/images/props/PropBetLayOut.png" alt="props layout" />
             <div id="diceContainer" class="dice-Container"></div>
@@ -84,6 +85,55 @@
     // Render dice when DOM content is loaded
     renderDice();
 
+
+    // Chips logic for representing
+    const betAmount = 170 
+   
+    const chips = [];
+    let bet = betAmount;
+    // Subtract 100 chips until the remaining bet is less than 100
+    while (bet >= 100) {
+        chips.push(100);
+        bet -= 100;
+    }
+
+    // Subtract 25 chips until the remaining bet is less than 25
+    while (bet >= 25) {
+        chips.push(25);
+        bet -= 25;
+    }
+
+    // Add the remaining bet as 5 chips
+    while (bet > 0) {
+        chips.push(5);
+        bet -= 5;
+    }
+
+    const worldBet = document.getElementById('propositionBet');
+
+    chips.forEach((chip, i) => {
+        const chipElement = document.createElement('div');
+        let colorClass = 'chip-black';
+
+        if (chip === 25) {
+            colorClass = 'chip-green';
+        } else if (chip === 5) {
+            colorClass = 'chip-red';
+        }
+
+        chipElement.classList.add('chip', colorClass);
+        chipElement.style = `left: 50%; top: calc(50% - ${i * 5}px); transform: translate(-50%, -50%);`;
+
+
+        worldBet.appendChild(chipElement);
+        if (i === chips.length - 1) {
+            const betAmountSpan = document.createElement('span');
+            betAmountSpan.innerText = betAmount;
+            betAmountSpan.style = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px;';
+            chipElement.appendChild(betAmountSpan);
+        }
+
+    });
 
 </script>
 

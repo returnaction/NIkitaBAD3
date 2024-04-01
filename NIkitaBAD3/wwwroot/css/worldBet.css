@@ -1,4 +1,4 @@
-﻿
+﻿/*Change the name of the file later it should be named propositionBet*/
 /*CHIPS*/
 .worldBet {
     width: 450px;
@@ -7,12 +7,14 @@
     position: relative;
 }
 
-
+.propositionBet {
+    position: relative;
+}
 
 .chip {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%; /* Ensure the chips are round */
     display: flex;
     align-items: center;
